@@ -97,7 +97,7 @@ class handleTeams(session):
                             self.updateMeeting((link[0]), dSet[link[0]])
                             time.sleep(self.defaultSleep)
                         except:
-                            self.logger.info("updateTeam-all-repeating-exception " + str(i))
+                            self.logger.info("updateTeam-all-repeating-exception " + str(i) + " logging an exception " + str(traceback.format_exc()))
                         else:
                             break
                 except:
@@ -116,10 +116,10 @@ class handleTeams(session):
                             self.web_driver.close()
                             self.web_driver.switch_to_window(self.web_driver.window_handles[0])
                         except:
-                            self.logger.error("unable to close->selectFirstTab")
+                            self.logger.error("unable to close->selectFirstTab logging an exception " + str(traceback.format_exc()))
                         time.sleep(self.defaultSleep)
                     except:
-                        self.logger.error("unable to selectSecondsTab->close->selectFirstTab")
+                        self.logger.error("unable to selectSecondsTab->close->selectFirstTab logging an exception " + str(traceback.format_exc()))
 
                 time_team_end = current_milli_time()
                 self.logger.info("time_team_end " + str(teamCnt) + ": " + str(time_team_end))
@@ -154,6 +154,7 @@ class handleTeams(session):
                 time.sleep(self.defaultSleep)
                 self.findAndClick("//button[@id='roster-button']")
             except:  # Replace Exception with something more specific.
+                self.logger.info("Smth went wrong at updateMeeting logging an exception " + str(traceback.format_exc()))
                 self.web_driver.get(self.web_driver.current_url)
                 time.sleep(self.defaultSleep)
                 continue
@@ -187,7 +188,8 @@ class handleTeams(session):
                         self.logger.info("people-picker-search open and click")
                         self.findAndClick("//div[@data-tid='people-picker-search']/div/ul/li[1]")
                     except:
-                        self.logger.info("Smth went wrong with participant [" + participantName + "] at (" + link + ")")
+                        self.logger.info("Smth went wrong with participant [" + participantName + "] at (" + link + ") logging an exception " + str(traceback.format_exc()))
+
                     time.sleep(self.defaultTinySleep)
                     from selenium.webdriver.common.keys import Keys
                     in_p = self.find_element_by_xpath("//input[@id='downshift-2-input']")
@@ -196,6 +198,7 @@ class handleTeams(session):
                     time.sleep(self.defaultTinySleep)
                     in_p.clear()
                 except:  # Replace Exception with something more specific.
+                    self.logger.info("Smth went wrong #2 with participant [" + participantName + "] at (" + link + ") logging an exception " + str(traceback.format_exc()))
                     continue
                 else:
                     break
@@ -206,6 +209,7 @@ class handleTeams(session):
                 self.findAndClick("//button[@data-tid='Save button']")
                 time.sleep(self.defaultSleep)
             except:  # Replace Exception with something more specific.
+                self.logger.info("Smth went wrong at save with participant [" + participantName + "] at (" + link + ") logging an exception " + str(traceback.format_exc()))
                 continue
             else:
                 break
