@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from pprint import pprint
 from selenium.common.exceptions import StaleElementReferenceException
+from common.files_utils import files_utils
 
 class ui_utils():
 

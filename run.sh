@@ -3,7 +3,6 @@
 # - X is runing on DISPLAY=:2
 # - teams is running
 rm -rf ~/.config/google-chrome/Singleton*
-
 pkill -9 -f handleTeams
 
 export DISPLAY=:2
