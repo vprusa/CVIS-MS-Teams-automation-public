@@ -1,0 +1,42 @@
+#!/bin/sh
+# if needed this can be used to start X display and exec teams and chrome locally in nested/jailed display
+# shortcut to leave nested screen is "Right Ctrl+Shift"
+
+# size of nested window
+geometry="1400x900"
+# additional Xephyr options
+xeph_opts="-resizeable"
+# choose window manager to start it is not good idea to start same as you are currently running
+
+# xfce session
+#windowman="/usr/bin/xfce4-session"
+
+#xfce window decorations only
+#windowman="/usr/bin/xfwm4"
+
+windowman="/usr/bin/fluxbox"
+#windowman="/usr/bin/gnome-session"
+#windowman="/usr/bin/startxfce4"
+#windowman="/usr/bin/starte16"
+#windowman="/usr/bin/startkde"
+#windowman="/usr/bin/enlightenment_start"
+
+# script, should not be edited
+if [ -z "$DISPLAY" ]; then
+	echo "Couldn't read your \$DISPLAY env variable, are you running X?"
+	exit 1
+fi
+# determine next display var
+dcnt=`echo "$DISPLAY" | tr -d ':' | cut -d '.' -f1`
+display=$(($dcnt+1))
+echo "Running Xephyr on display '2'"
+Xephyr :2 ${xeph_opts} -screen ${geometry} &
+
+sleep 1
+export DISPLAY=":2"
+echo "Running ${windowman}"
+${windowman} &
+sleep 3
+
+export DISPLAY=:2 WAYLAND_DISPLAY=:2
+
