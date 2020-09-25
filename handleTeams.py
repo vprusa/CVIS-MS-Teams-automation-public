@@ -21,6 +21,8 @@ class handleTeams(session):
         pass
 
     defaultSleep = 1
+    defaultShortSleep = 0.5
+    defaultTinySleep = 0.2
     defaultRepeat = 3
     defaultWait = 10
 
@@ -133,7 +135,7 @@ class handleTeams(session):
 
         time.sleep(self.defaultSleep)
         self.findAndClick("//*[@data-tid='joinOnWeb']")
-        # time.sleep(self.defaultSleep)
+        time.sleep(self.defaultSleep)
 
         for i in range(self.defaultRepeat):
             # while True:
@@ -162,7 +164,7 @@ class handleTeams(session):
         self.findAndClick("//button[@title='More options']")
 
         self.findAndClick("//a[@title='Manage permissions']")
-        time.sleep(0.5)
+        time.sleep(self.defaultShortSleep)
 
         self.web_driver.switch_to_window(self.web_driver.window_handles[1])
         time.sleep(self.defaultSleep)
@@ -180,18 +182,18 @@ class handleTeams(session):
                     self.logger.info("participantName " + participantName)
                     in_p = self.find_element_by_xpath("//input[@id='downshift-2-input']")
                     in_p.send_keys("(" + participantName + ")")
-                    time.sleep(0.5)
+                    time.sleep(self.defaultShortSleep)
                     try:
                         self.logger.info("people-picker-search open and click")
                         self.findAndClick("//div[@data-tid='people-picker-search']/div/ul/li[1]")
                     except:
                         self.logger.info("Smth went wrong with participant [" + participantName + "] at (" + link + ")")
-                    time.sleep(0.2)
+                    time.sleep(self.defaultTinySleep)
                     from selenium.webdriver.common.keys import Keys
                     in_p = self.find_element_by_xpath("//input[@id='downshift-2-input']")
                     in_p.send_keys(Keys.CONTROL + "a")
                     in_p.send_keys(Keys.DELETE)
-                    time.sleep(0.2)
+                    time.sleep(self.defaultTinySleep)
                     in_p.clear()
                 except:  # Replace Exception with something more specific.
                     continue

@@ -63,7 +63,7 @@ sudo dnf localinstall google-chrome-stable_current_x86_64.rpm -y
 
 # https://www.server-world.info/en/note?os=CentOS_8&p=desktop&f=1
 #sudo yum groupinstall "GNOME Desktop"
-sudo yum groupinstall "Server with GUI"
+sudo yum groupinstall "Server with GUI"  -y
 
 # https://serverfault.com/questions/363827/how-can-i-run-firefox-on-centos-with-no-display
 yum install xorg-x11-server-Xvfb -y

@@ -78,12 +78,9 @@ class ui_utils():
     def waitForElementOnPage(self, locatormethod, locatorvalue, waitTime, exist=True, refresh=False, show_as_error=True):
         currentTime = time.time()
         waitTime=int(waitTime)
-        self.closePossibleModalDialog()
         isElementPresent = self.isElementPresent(locatormethod, locatorvalue)
-        self.closePossibleModalDialog()
         while ((not isElementPresent and exist) or
                    (isElementPresent and not exist)):
-            self.closePossibleModalDialog()
             if time.time() - currentTime >= waitTime:
                 if show_as_error:
                     self.web_session.logger.error("Timed out waiting for: %s", locatorvalue)
@@ -133,4 +130,3 @@ class ui_utils():
             traceback.print_exc()
 
         pass
-

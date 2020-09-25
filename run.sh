@@ -3,6 +3,11 @@
 # - X is runing on DISPLAY=:2
 # - teams is running
 
+pkill -9 -f handleTeams
+
+export DISPLAY=:2
+teams & disown
+
 [[ -z $1 ]] && export DISPLAY=:2 || export DISPLAY=$1
 export T_NOW_STR=`date "+%Y-%m-%d_%H-%M-%S"`
 export T_LOG_FILE=./run.${T_NOW_STR}.log
