@@ -1,0 +1,20 @@
+# store this at
+# /etc/systemd/system/teams-automation.service
+# and then
+# systemctl enable teams-automation
+# systemctl restart teams-automation
+[Unit]
+Description=teams-automation
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/bin/sh -c 'cd /root/ws/sel2/ ; ./run.sh & disown'
+User=root
+Group=root
+
+Restart=on-failure
+
+[Install]
+#WantedBy=default.target
+WantedBy=multi-user.target
